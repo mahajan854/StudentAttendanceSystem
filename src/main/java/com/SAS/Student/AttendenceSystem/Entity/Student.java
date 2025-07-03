@@ -1,5 +1,7 @@
 package com.SAS.Student.AttendenceSystem.Entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -81,6 +83,13 @@ public class Student {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
+
+	public Coordinator getCoordinator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 	
