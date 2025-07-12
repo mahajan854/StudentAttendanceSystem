@@ -27,4 +27,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Integer>
     // ✅ NEW: Get students who are absent more than 3 times
     @Query("SELECT a.student FROM Attendance a WHERE a.status = 'Absent' GROUP BY a.student HAVING COUNT(a) > 3")
     List<Student> findStudentsWithMoreThan3Absents();
+
+	
 }

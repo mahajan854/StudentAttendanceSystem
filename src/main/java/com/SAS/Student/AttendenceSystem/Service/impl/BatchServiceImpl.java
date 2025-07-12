@@ -3,12 +3,10 @@ package com.SAS.Student.AttendenceSystem.Service.impl;
 import com.SAS.Student.AttendenceSystem.Entity.Batch;
 import com.SAS.Student.AttendenceSystem.Repository.BatchRepository;
 import com.SAS.Student.AttendenceSystem.Service.BatchService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BatchServiceImpl implements BatchService {
@@ -23,19 +21,18 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public Batch updateBatch(int id, Batch updatedBatch) {
-        Optional<Batch> optionalBatch = batchRepository.findById(id);
-        if (optionalBatch.isPresent()) {
-            Batch existingBatch = optionalBatch.get();
-            existingBatch.setName(updatedBatch.getName());
-            existingBatch.setStartTime(updatedBatch.getStartTime());
-            existingBatch.setEndTime(updatedBatch.getEndTime());
-            existingBatch.setStartDate(updatedBatch.getStartDate());
-            existingBatch.setEndDate(updatedBatch.getEndDate());
-            existingBatch.setTrainer(updatedBatch.getTrainer());
-            existingBatch.setSubject(updatedBatch.getSubject());
-            return batchRepository.save(existingBatch);
-        }
-        return null;
+        Batch batch = batchRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Batch not found with id: " + id));
+
+        batch.setName(updatedBatch.getName());
+        batch.setStartTime(updatedBatch.getStartTime());
+        batch.setEndTime(updatedBatch.getEndTime());
+        batch.setStartDate(updatedBatch.getStartDate());
+        batch.setEndDate(updatedBatch.getEndDate());
+        batch.setTrainer(updatedBatch.getTrainer());
+        batch.setSubject(updatedBatch.getSubject());
+
+        return batchRepository.save(batch);
     }
 
     @Override
@@ -45,7 +42,8 @@ public class BatchServiceImpl implements BatchService {
 
     @Override
     public Batch getBatchById(int id) {
-        return batchRepository.findById(id).orElse(null);
+        return batchRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Batch not found with id: " + id));
     }
 
     @Override

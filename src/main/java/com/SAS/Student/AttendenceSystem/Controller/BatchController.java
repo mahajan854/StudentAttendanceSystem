@@ -9,38 +9,40 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/batches")
+@CrossOrigin(origins = "*")
 public class BatchController {
 
     @Autowired
     private BatchService batchService;
 
-    // Get all batches
+    // Create
+    @PostMapping
+    public Batch createBatch(@RequestBody Batch batch) {
+        return batchService.saveBatch(batch);
+    }
+
+    // Read all
     @GetMapping
     public List<Batch> getAllBatches() {
         return batchService.getAllBatches();
     }
 
-    // Get batch by ID
+    // Read one
     @GetMapping("/{id}")
     public Batch getBatchById(@PathVariable int id) {
         return batchService.getBatchById(id);
     }
 
-    // Add new batch
-    @PostMapping
-    public Batch addBatch(@RequestBody Batch batch) {
-        return batchService.saveBatch(batch);
-    }
-
-    // Update batch
+    // Update
     @PutMapping("/{id}")
     public Batch updateBatch(@PathVariable int id, @RequestBody Batch batch) {
         return batchService.updateBatch(id, batch);
     }
 
-    // Delete batch
+    // Delete
     @DeleteMapping("/{id}")
-    public void deleteBatch(@PathVariable int id) {
+    public String deleteBatch(@PathVariable int id) {
         batchService.deleteBatch(id);
+        return "Batch deleted with id: " + id;
     }
 }

@@ -1,23 +1,14 @@
 package com.SAS.Student.AttendenceSystem.Entity;
 
-
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "StudentsBatches")
+@Table(name = "studentbatches")
 public class StudentBatches {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;  // Simple primary key
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
@@ -27,7 +18,6 @@ public class StudentBatches {
     @JoinColumn(name = "batch_id", nullable = false)
     private Batch batch;
 
-    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -51,7 +41,4 @@ public class StudentBatches {
     public void setBatch(Batch batch) {
         this.batch = batch;
     }
-
-	
-    
 }
